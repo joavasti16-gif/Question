@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 2;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+
+
+        h1 {
+            color: #c2185b;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .no-btn {
+            background: #e0e0e0;
+            color: #666;
+            position: relative;
+        }
+
+        .no-btn:hover {
+            transform: scale(0.9);
+        }
+
+        .celebration {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .celebration h2 {
+            color: #c2185b;
+            font-size: 32px;
+            margin: 20px 0;
+        }
+
+        .celebration p {
+            color: #555;
+            font-size: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div id="welcome">
+            <h1>Mi Amor...</h1>
+            <p class="message">
+                En este día quiero preguntarte algo muy especial.
+            </p>
+            <div class="buttons">
+                <button class="yes-btn" onclick="goToQuestion()">Siguiente</button>
+            </div>
+        </div>
+
+        <div id="question" style="display: none;">
+            <p class="message">
+                Eres la persona que hace mis días más brillantes, la que me hace sonreír sin razón, 
+                y con quien quiero compartir este día tan especial.<br><br>
+                <strong>¿Quieres ser mi San Valentín?</strong>
+            </p>
+            <div class="buttons">
+                <button class="yes-btn" onclick="sayYes()">¡SÍ!</button>
+                <button class="no-btn" id="noBtn" onclick="showGrosero()">No...</button>
+            </div>
+        </div>
+
+        <div id="grosero" class="celebration" style="display: none;">
+            <img src="Joanita_nojaa.jpg" alt="Joanita" style="max-width: 300px; border-radius: 15px; margin-bottom: 20px;">
+            <h2>Eduardo eres un grosero</h2>
+            <div class="buttons">
+                <button class="yes-btn" onclick="tryAgain()">Intenta de nuevo</button>
+            </div>
+        </div>
+
+        <div id="celebration" class="celebration">
+            <h2>Jijiji gachas por elegir que ti</h2>
+            <p style="font-size: 18px; margin-bottom: 25px;">Deseo que seas mi san valentín toda la vida, todos los días</p>
+            <img src="Joanita_feli.jpg" alt="Joanita feliz" style="max-width: 300px; border-radius: 15px; margin-bottom: 20px;">
+            <p style="font-size: 16px; color: #666;">¿Una donita para celebrar?<br>(No había pan del S-Mart)</p>
+        </div>
+    </div>
+
+    <script>
+        // Función para ir a la pregunta
+        function goToQuestion() {
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('question').style.display = 'block';
+        }
+
+        // Función cuando dice sí
+        function sayYes() {
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+        }
+
+        // Función cuando dice no
+        function showGrosero() {
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('grosero').style.display = 'block';
+        }
+
+        // Función para intentar de nuevo
+        function tryAgain() {
+            document.getElementById('grosero').style.display = 'none';
+            document.getElementById('question').style.display = 'block';
+        }
+
+        // Función para mover el botón "No"
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const container = noBtn.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - noBtn.offsetWidth - 40;
+            const maxY = containerRect.height - noBtn.offsetHeight;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+    </script>
+</body>
+</html>
